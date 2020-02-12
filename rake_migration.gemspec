@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = "Rake Migration"
   spec.description   = "Gem For Rake Migration"
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.homepage      = "https://github.com/vkuzin-zaraffa/rake_migration"
   spec.license       = "MIT"
   spec.required_ruby_version = Gem::Requirement.new(">= 2.3.0")
 
