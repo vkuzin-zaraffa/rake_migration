@@ -1,4 +1,4 @@
-module RakeMigrations
+module RakeMigration
   class Migrator
 
     attr_reader :tasks
@@ -17,7 +17,7 @@ module RakeMigrations
       end
 
       def get_migrated_tasks
-        TaskMigration.migrated.map { |t| t.name.to_s }
+        RakeMigration::TaskMigration.migrated.map { |t| t.name.to_s }
       end
     end
 
@@ -25,7 +25,8 @@ module RakeMigrations
     private
 
     def migrate_task(task)
-      migration = TaskMigration.pending_tasks.by_name(task).first || TaskMigration.new(name: task)
+      migration = RakeMigration::TaskMigration.pending_tasks.by_name(task).first ||
+                  RakeMigration::TaskMigration.new(name: task)
 
       Rails.logger.info "#{self.class}.#{__method__} Start #{task}: migrating"
 

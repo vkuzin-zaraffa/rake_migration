@@ -1,9 +1,8 @@
 require 'rake'
 require 'benchmark'
-require 'rake_migration/version'
-require 'rake_migration/migration'
+require 'rake_migration/migrator'
 
-module RakeMigrations
+module RakeMigration
   module Migration
 
     DEFAULT_TABLE_NAME = 'task_migrations'
@@ -22,7 +21,7 @@ module RakeMigrations
       end
 
       def migrate
-        RakeMigrations::Migrator.migrate(tasks)
+        RakeMigration::Migrator.migrate(tasks)
       end
 
       def tasks

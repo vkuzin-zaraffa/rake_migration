@@ -23,10 +23,14 @@ Add gem DB migration
     
 ## Usage
 
-Added to config/initializers/rake_migration.rb 
+Run manual 
+
+    $ rake rake_migration:run
+
+Or add to config/initializers/rake_migration.rb 
 
 ```ruby
-RakeMigrations::Migration.migrate
+RakeMigration::Migration.migrate
 ```
 
 ## Contributing
