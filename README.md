@@ -30,6 +30,7 @@ Run manual
 Or add to config/initializers/rake_migration.rb 
 
 ```ruby
+Rake.application.load_rakefile
 RakeMigration::Migration.migrate
 ```
 
