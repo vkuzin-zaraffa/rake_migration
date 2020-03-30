@@ -5,14 +5,14 @@ require 'rake_migration/migrator'
 module RakeMigration
   module Migration
 
-    DEFAULT_TABLE_NAME = 'task_migrations'
-    DEFAULT_NAMESPACE  = :rake_migrations
+    DEFAULT_TABLE   = 'task_migrations'
+    TASK_NAMESPACE  = :rake_migrations
 
-    mattr_accessor :migration_table_name
-    self.migration_table_name = DEFAULT_TABLE_NAME
+    mattr_accessor :migration_table
+    self.migration_table = DEFAULT_TABLE
 
-    mattr_accessor :migration_namespace
-    self.migration_namespace  = DEFAULT_NAMESPACE
+    mattr_accessor :task_namespace
+    self.task_namespace  = TASK_NAMESPACE
 
 
     class << self
@@ -21,7 +21,7 @@ module RakeMigration
       end
 
       def migrate
-        RakeMigration::Migrator.migrate(tasks)
+        RakeMigration::Worker.migrate(tasks)
       end
 
       def tasks
@@ -29,7 +29,7 @@ module RakeMigration
       end
 
       def with_namespace
-        Rake.application.in_namespace(migration_namespace) do |namespace|
+        Rake.application.in_namespace(task_namespace) do |namespace|
           yield namespace if block_given?
         end
       end

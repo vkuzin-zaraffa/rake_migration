@@ -1,5 +1,5 @@
 module RakeMigration
-  class Migrator
+  class Worker
 
     attr_reader :tasks
 
@@ -8,7 +8,7 @@ module RakeMigration
     end
 
     def migrate
-      pending_tasks.each { |task| migrate_task(task.name.to_s) }
+      new_tasks.each { |task| migrate_task(task.name.to_s) }
     end
 
     class << self
@@ -25,7 +25,7 @@ module RakeMigration
     private
 
     def migrate_task(task)
-      migration = RakeMigration::TaskMigration.pending_tasks.by_name(task).first ||
+      migration = RakeMigration::TaskMigration.new_tasks.by_name(task).first ||
                   RakeMigration::TaskMigration.new(name: task)
 
       Rails.logger.info "#{self.class}.#{__method__} Start #{task}: migrating"
@@ -44,7 +44,7 @@ module RakeMigration
       Rails.logger.error "#{self.class}.#{__method__} #{task}: migrated error: (#{e.message})"
     end
 
-    def pending_tasks
+    def new_tasks
       tasks.reject { |task| migrated.include?(task.name) }
     end
 
